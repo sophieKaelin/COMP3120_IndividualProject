@@ -2,6 +2,8 @@
 
 An individual project for COMP3120 Advanced Web Devleopment
 
+Sample assignment: http://comp249.stevecassidy.net/
+
 The project should implement a micro-blog similar to Twitter that supports at least these
 __core requirements__:
 
