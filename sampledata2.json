@@ -1,0 +1,82 @@
+{
+    "users": [
+        {
+            "id": "prisonmike",
+            "password": "Michael Scott",
+            "avatar": "http://robohash.org/bob",
+            "follows": [
+                "",
+                "Jimbulator"
+            ]
+        },
+        {
+            "id": "Jimbulator",
+            "password": "Jim Halpert",
+            "avatar": "http://robohash.org/jim",
+            "follows": [
+                "Bean",
+                "Contrary"
+            ]
+        },
+        {
+            "id": "pam",
+            "password": "pam",
+            "avatar": "http://robohash.org/mary",
+            "follows": [
+                "Barfoo"
+            ]
+        },
+        {
+            "id": "Bean",
+            "password": "jb",
+            "avatar": "http://robohash.org/jb",
+            "follows": [
+                "Bobalooba"
+            ]
+        },
+        {
+            "id": "Mandible",
+            "password": "mandible",
+            "avatar": "http://robohash.org/mandible",
+            "follows": [
+                "Contrary"
+            ]
+        },
+        {
+            "id": "Barfoo",
+            "password": "bar",
+            "avatar": "http://robohash.org/bar",
+            "follows": [
+                "Jimbulator",
+                "Bean"
+            ]
+        }
+    ],
+    "posts": [
+        {
+            "id": 1,
+            "user": "Bean",
+            "timestamp": "2020-07-15 07:25:28",
+            "content": "@Jimbulator Bean ngr ux urynauydyw inwjh oyafoji qpmia alitype yhtleeft viuhziw opya #ailbk #ynv xhejaa #gqxojaera #ram qajix ceomy ndbyejv",
+            "likes": [
+                "Jimbulator",
+                "Contrary",
+                "Mandible",
+                "Bobalooba"
+            ]
+        },
+        {
+            "id": 2,
+            "user": "Bobalooba",
+            "timestamp": "2020-07-15 06:35:15",
+            "content": "Bobalooba uave gf yjjmqaim #ihj oafzf xe uelbvr #qdoycgi puy #fvism @Jimbulator wyfxaa hggqvuaoy cfla fffvzvlldn creeiutyf tzpjsr jeejkqog mwajbjon fyb yzfacvan hi doq nisvnxcoro ewwb eeoqoe",
+            "likes": [
+                "Barfoo",
+                "Jimbulator",
+                "Mandible",
+                "Contrary",
+                "Bean"
+            ]
+        }
+    ]
+}
