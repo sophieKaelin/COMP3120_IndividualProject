@@ -1,6 +1,9 @@
+require("dotenv").config()
+
 const mongoose = require("mongoose") //node library that connects to MongoDB
 
 const url = process.env.MONGODB_URI
+console.log("HERE IT IS", process.env.MONGODB_URI)
 
 //Check for password to access DB
 if (process.argv.length < 3) {
@@ -22,6 +25,7 @@ mongoose
         console.log("You are connected to the DB")
     })
     .catch((error) => {
+        console.log(error)
         console.log("Could not connect to db")
     })
 
@@ -35,9 +39,3 @@ const usersSchema = new mongoose.Schema({
 const User = mongoose.model("User", usersSchema)
 
 module.exports = User
-
-/*TODO: Maybe add later? Depends if I want to close the connection or not */
-// note.save().then((result) => {
-//     console.log("db updated")
-//     mongoose.connection.close()
-// })
