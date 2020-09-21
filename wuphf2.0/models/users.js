@@ -3,7 +3,6 @@ require("dotenv").config()
 const mongoose = require("mongoose") //node library that connects to MongoDB
 
 const url = process.env.MONGODB_URI
-console.log("HERE IT IS", process.env.MONGODB_URI)
 
 //Check for password to access DB
 if (process.argv.length < 3) {
@@ -26,7 +25,7 @@ mongoose
     })
     .catch((error) => {
         console.log(error)
-        console.log("Could not connect to db")
+        console.log("Could not connect to DB")
     })
 
 const usersSchema = new mongoose.Schema({
@@ -38,4 +37,13 @@ const usersSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", usersSchema)
 
-module.exports = User
+const postsSchema = new mongoose.Schema({
+    user: String,
+    timestamp: String,
+    content: String,
+    likes: Array,
+})
+
+const Post = mongoose.model("Post", postsSchema)
+
+module.exports = { User, Post }
