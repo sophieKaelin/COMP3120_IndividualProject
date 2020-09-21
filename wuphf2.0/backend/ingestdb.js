@@ -1,6 +1,6 @@
 require("dotenv").config()
 const mongoose = require("mongoose")
-const { User, Post } = require("./users")
+const { User, Post } = require("./schemas")
 const fs = require("fs")
 
 //READ IN USER DATA
