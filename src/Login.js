@@ -21,6 +21,7 @@ const Login = ({ user, setUser }) => {
             .then((data) => {
                 console.log("Success:", data)
                 setUser(data)
+                localStorage.setItem("user", JSON.stringify(data))
             })
             .catch((error) => {
                 console.log("Error:", error)

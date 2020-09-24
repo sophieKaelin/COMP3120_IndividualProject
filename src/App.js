@@ -22,7 +22,12 @@ function App() {
         setUser(user)
     }
 
-    useEffect
+    useEffect(() => {
+        const localUser = JSON.parse(localStorage.getItem("user"))
+        if (localUser) {
+            setUser(localUser)
+        }
+    }, [])
 
     return (
         <Router>

@@ -8,6 +8,7 @@ const NavBar = ({ user, setUser }) => {
     // }, [])
 
     const saveAndLogout = () => {
+        localStorage.removeItem("user")
         setUser(null)
     }
 
