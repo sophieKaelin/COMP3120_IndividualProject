@@ -1,23 +1,22 @@
-import React from "react"
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    useParams,
-} from "react-router-dom"
+import React, { useState, useEffect } from "react"
 import BNav from "react-bootstrap/Nav"
 import "./style/NavBar.css"
 
-const NavBar = (props) => {
+const NavBar = ({ user, setUser }) => {
+    useEffect(() => {
+        setUser("test")
+    }, [])
+
+    const saveAndLogout = () => {
+        setUser(null)
+    }
+
     return (
         //ADD LOGO ON THE LEFT
         //ADD SEARCH BAR ON THE LEFT
         <BNav variant="tabs" activeKey="/home">
             <BNav.Item>
-                <BNav.Link class="float-right" href="/">
-                    Home
-                </BNav.Link>
+                <BNav.Link href="/">Home</BNav.Link>
             </BNav.Item>
             <BNav.Item>
                 <BNav.Link href="/explore">Explore</BNav.Link>
@@ -25,9 +24,13 @@ const NavBar = (props) => {
             <BNav.Item>
                 <BNav.Link href="/profile/:username">Profile</BNav.Link>
             </BNav.Item>
-            <BNav.Item>
+            {user ? (
+                <BNav.Link href="/home" onSelect={saveAndLogout}>
+                    Logout
+                </BNav.Link>
+            ) : (
                 <BNav.Link href="/login">Login</BNav.Link>
-            </BNav.Item>
+            )}
         </BNav>
     )
 }
