@@ -97,7 +97,7 @@ app.post("/api/login", async (request, response) => {
                 id: user.id,
                 username: user.username,
             }
-            const token = jwt.sign(userForToken, "yeet")
+            const token = jwt.sign(userForToken, process.env.SECRET_KEY) //TODO: insecurity, put in env file.
 
             return response
                 .status(200)
