@@ -1,14 +1,24 @@
+require("dotenv").config()
 const express = require("express")
 const app = express()
 
 const cors = require("cors")
 const fs = require("fs")
+const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
 const { User, Post } = require("./schemas")
 
 app.use(express.static("build"))
 
 app.use(cors())
 app.use(express.json())
+
+const getUser = async (user) => {
+    console.log(user)
+    return await User.findOne({ username: user }).then((result) => {
+        return result
+    })
+}
 
 //returns an array of json objects
 const getFollowers = async ({ user }) => {
@@ -67,6 +77,37 @@ app.get("/api/users/posts/:username", (request, response) => {
         console.log(result)
         response.json(result)
     })
+})
+
+app.post("/api/login", async (request, response) => {
+    const username = request.body.username
+    const password = request.body.password
+
+    const user = await getUser(username)
+    console.log(user)
+    if (!user) {
+        //check if the user exists
+        return response
+            .status(401)
+            .json({ error: "invalid username or password" })
+    } else {
+        if (await bcrypt.compare(password, user.password)) {
+            console.log("Password is gooooood")
+            const userForToken = {
+                id: user.id,
+                username: user.username,
+            }
+            const token = jwt.sign(userForToken, "yeet")
+
+            return response
+                .status(200)
+                .json({ token, username: user.username, name: user.name })
+        } else {
+            return response
+                .status(401)
+                .json({ error: "Invalid username or password" })
+        }
+    }
 })
 
 const PORT = process.env.PORT || 3001
