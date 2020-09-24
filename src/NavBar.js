@@ -3,9 +3,9 @@ import BNav from "react-bootstrap/Nav"
 import "./style/NavBar.css"
 
 const NavBar = ({ user, setUser }) => {
-    useEffect(() => {
-        setUser("test")
-    }, [])
+    // useEffect(() => {
+    //     setUser("test")
+    // }, [])
 
     const saveAndLogout = () => {
         setUser(null)
@@ -25,7 +25,7 @@ const NavBar = ({ user, setUser }) => {
                 <BNav.Link href="/profile/:username">Profile</BNav.Link>
             </BNav.Item>
             {user ? (
-                <BNav.Link href="/home" onSelect={saveAndLogout}>
+                <BNav.Link href="/" onSelect={saveAndLogout}>
                     Logout
                 </BNav.Link>
             ) : (
