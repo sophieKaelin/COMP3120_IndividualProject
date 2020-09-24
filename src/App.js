@@ -22,16 +22,11 @@ function App() {
         setUser(user)
     }
 
+    useEffect
+
     return (
         <Router>
             <Switch>
-                <Route path="/">
-                    {/* TODO: If User is not logged in, should redirect to the login page */}
-                    <NavBar user={user} setUser={FsetUser} />
-                    <PostComposer />
-                    <Feed />{" "}
-                    {/* TODO: Restrict feed just to posts of people in following list*/}
-                </Route>
                 <Route path="/explore">
                     <NavBar user={user} setUser={FsetUser} />
                     {/* TODO: Unrestricted feed, view all posts */}
@@ -47,7 +42,14 @@ function App() {
                 </Route>
                 <Route path="/login">
                     <NavBar user={user} setUser={FsetUser} />
-                    <Login />
+                    <Login user={user} setUser={FsetUser} />
+                </Route>
+                <Route path="/">
+                    {/* TODO: If User is not logged in, should redirect to the login page */}
+                    <NavBar user={user} setUser={FsetUser} />
+                    <PostComposer />
+                    <Feed />
+                    {/* TODO: Restrict feed just to posts of people in following list*/}
                 </Route>
             </Switch>
         </Router>
