@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import { defaultModifiers } from "@popperjs/core/lib/popper-lite"
+import Card from "react-bootstrap/Card"
 
 const Feed = ({ feed }) => {
     //Will have many modes:
@@ -13,20 +13,23 @@ const Feed = ({ feed }) => {
     useEffect(() => {
         axios.get("http://localhost:3001/api/posts").then((response) => {
             setPosts(response.data)
-            console.log("yeeeehawwww")
             console.log(response.data)
         })
     }, [])
 
-    console.log(posts)
+    console.log("posts***", posts[0])
+    // console.log(posts[0])
     return posts.map((data) => (
-        <div>
-            <h2>@{data.user}</h2>
-            <p>{data.content}</p>
-            <p>
+        <Card style={{ width: "18rem" }}>
+            <Card.Img variant="top" src={data.avatar} />
+            <Card.Body>
+                <Card.Link href={"/profile/" + data.user}>
+                    @{data.user}
+                </Card.Link>
+                <Card.Text>{data.content}</Card.Text>
                 <i>Likes: {data.likes.length}</i>
-            </p>
-        </div>
+            </Card.Body>
+        </Card>
     ))
 }
 
