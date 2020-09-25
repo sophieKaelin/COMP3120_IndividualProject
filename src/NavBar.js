@@ -16,15 +16,21 @@ const NavBar = ({ user, setUser }) => {
         //ADD LOGO ON THE LEFT
         //ADD SEARCH BAR ON THE LEFT
         <BNav variant="tabs" activeKey="/home">
-            <BNav.Item>
-                <BNav.Link href="/">Home</BNav.Link>
-            </BNav.Item>
+            {user && (
+                <BNav.Item>
+                    <BNav.Link href="/">Home</BNav.Link>
+                </BNav.Item>
+            )}
             <BNav.Item>
                 <BNav.Link href="/explore">Explore</BNav.Link>
             </BNav.Item>
-            <BNav.Item>
-                <BNav.Link href="/profile/:username">Profile</BNav.Link>
-            </BNav.Item>
+            {user && (
+                <BNav.Item>
+                    <BNav.Link href={"/profile/" + user.username}>
+                        Profile
+                    </BNav.Link>
+                </BNav.Item>
+            )}
             {user ? (
                 <BNav.Link href="/" onSelect={saveAndLogout}>
                     Logout

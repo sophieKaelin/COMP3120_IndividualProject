@@ -37,7 +37,7 @@ function App() {
                     {/* TODO: Unrestricted feed, view all posts */}
                     <Feed />
                 </Route>
-                <Route path="/profile/:username">
+                <Route path="/profile/{:username}">
                     <NavBar user={user} setUser={FsetUser} />
                     <Profile />
                 </Route>
