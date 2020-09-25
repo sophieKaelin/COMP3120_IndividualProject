@@ -24,11 +24,27 @@ userJson.users.map((thing) => {
     })
 })
 
+const getContent = (content) => {
+    let temp = content.split(" ")
+    temp = temp.map((data) =>
+        data.startsWith("@")
+            ? " <a href='/profile/" +
+              data.substring(1) +
+              "'>@" +
+              data.substring(1) +
+              "</a>"
+            : data
+    )
+    temp = "<p>" + temp.join(" ") + "</p>"
+    console.log("temp ", temp)
+    return temp
+}
+
 userJson.posts.map((thing) => {
     const newThing = new Post({
         user: thing.user,
         timestamp: thing.timestamp,
-        content: thing.content,
+        content: getContent(thing.content),
         likes: thing.likes,
     })
 

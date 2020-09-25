@@ -26,7 +26,9 @@ const Feed = ({ feed }) => {
                 <Card.Link href={"/profile/" + data.user}>
                     @{data.user}
                 </Card.Link>
-                <Card.Text>{data.content}</Card.Text>
+                <Card.Text
+                    dangerouslySetInnerHTML={{ __html: data.content }}
+                ></Card.Text>
                 <i>Likes: {data.likes.length}</i>
             </Card.Body>
         </Card>
