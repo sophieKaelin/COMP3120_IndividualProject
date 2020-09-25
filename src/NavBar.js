@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import BNav from "react-bootstrap/Nav"
 import "./style/NavBar.css"
 
-const NavBar = ({ user, setUser }) => {
+const NavBar = ({ user, setUser, setMode }) => {
     // useEffect(() => {
     //     setUser("test")
     // }, [])
@@ -18,15 +18,22 @@ const NavBar = ({ user, setUser }) => {
         <BNav variant="tabs" activeKey="/home">
             {user && (
                 <BNav.Item>
-                    <BNav.Link href="/">Home</BNav.Link>
+                    <BNav.Link href="/" onSelect={(e) => setMode(2)}>
+                        Home
+                    </BNav.Link>
                 </BNav.Item>
             )}
             <BNav.Item>
-                <BNav.Link href="/explore">Explore</BNav.Link>
+                <BNav.Link href="/explore" onSelect={(e) => setMode(1)}>
+                    Explore
+                </BNav.Link>
             </BNav.Item>
             {user && (
                 <BNav.Item>
-                    <BNav.Link href={"/profile/" + user.username}>
+                    <BNav.Link
+                        href={"/profile/" + user.username}
+                        onSelect={(e) => setMode(3)}
+                    >
                         Profile
                     </BNav.Link>
                 </BNav.Item>
