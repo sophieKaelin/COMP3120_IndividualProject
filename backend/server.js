@@ -21,12 +21,21 @@ const getUser = async (user) => {
 }
 
 //returns an array of json objects
-const getFollowers = async ({ user }) => {
-    let followers = []
-    await User.find({ username: user }).then((result) => {
-        followers = result[0].follows
+const getFollowers = async (user) => {
+    return await User.find({ username: user }).then((result) => {
+        return result[0].follows
     })
 }
+
+//Fetch posts ONLY by users a person follows
+app.get("/api/users/:username/followers", async (request, response) => {
+    const user = String(request.params.username)
+    const followers = await getFollowers(user)
+    await Post.find({ user: followers }).then((result) => {
+        console.log(result)
+        response.json(result)
+    })
+})
 
 //Fetch all Users
 app.get("/api/users", (request, response) => {
@@ -60,7 +69,7 @@ app.get("/api/posts", (request, response) => {
     })
 })
 
-//Fetch Single Users
+//Fetch Single Post
 //TODO: add a catch for when a post isn't found
 app.get("/api/posts/:id", (request, response) => {
     const postID = String(request.params.id)
