@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import axios from "axios"
 import NavBar from "./NavBar.js"
 import Profile from "./Profile.js"
 import Feed from "./Feed.js"
@@ -26,7 +27,13 @@ function App() {
     useEffect(() => {
         const localUser = JSON.parse(localStorage.getItem("user"))
         if (localUser) {
-            setUser(localUser)
+            axios
+                .get("http://localhost:3001/api/users/" + localUser.username)
+                .then((response) => {
+                    setUser(response.data)
+                    console.log("response:", response.data)
+                })
+            // setUser(localUser)
         }
     }, [])
 
