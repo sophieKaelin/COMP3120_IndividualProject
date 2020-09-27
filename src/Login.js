@@ -40,6 +40,7 @@ const Login = ({ user, setUser }) => {
                     placeholder="Enter Username"
                     onChange={(e) => setUsername(e.target.value)}
                 />
+                <br></br>
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                     name="password"
@@ -47,6 +48,7 @@ const Login = ({ user, setUser }) => {
                     placeholder="Enter Password"
                     onChange={(e) => setPassword(e.target.value)}
                 />
+                <br></br>
                 <Button type="submit">Login</Button>
             </Form>
         )

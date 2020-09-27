@@ -54,9 +54,14 @@ a :hover {
     color: #f507c9;
 }
 
-.button {
+.btn-primary {
     background-color: hotpink;
     font-weight: bold;
+    border-color: white;
+}
+
+.btn-primary:hover {
+    background-color: #ab0338;
     border-color: white;
 }
 
