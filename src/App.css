@@ -50,8 +50,9 @@ a {
     font-weight: bold;
 }
 
-a :hover {
-    color: #f507c9;
+a:hover {
+    color: white;
+    background-color: #737372;
 }
 
 .btn-primary {
