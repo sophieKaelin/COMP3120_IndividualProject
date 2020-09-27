@@ -18,22 +18,15 @@ const NavBar = ({ user, setUser, setMode }) => {
         <BNav variant="tabs" activeKey="/home">
             {user && (
                 <BNav.Item>
-                    <BNav.Link href="/" onSelect={(e) => setMode(2)}>
-                        Home
-                    </BNav.Link>
+                    <BNav.Link href="/">Home</BNav.Link>
                 </BNav.Item>
             )}
             <BNav.Item>
-                <BNav.Link href="/explore" onSelect={(e) => setMode(1)}>
-                    Explore
-                </BNav.Link>
+                <BNav.Link href="/explore">Explore</BNav.Link>
             </BNav.Item>
             {user && (
                 <BNav.Item>
-                    <BNav.Link
-                        href={"/profile/" + user.username}
-                        onSelect={(e) => setMode(3)}
-                    >
+                    <BNav.Link href={"/profile/" + user.username}>
                         Profile
                     </BNav.Link>
                 </BNav.Item>

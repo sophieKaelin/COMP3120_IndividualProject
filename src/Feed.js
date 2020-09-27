@@ -2,23 +2,29 @@ import React, { useEffect, useState } from "react"
 import axios from "axios"
 import Card from "react-bootstrap/Card"
 
-const Feed = ({ feed }) => {
+const Feed = ({ postURL }) => {
     //Will have many modes:
     //1. show all posts
     //2. show posts user is following
     //3. show posts by user
     //4. show posts mentioning user (HD)
     const [posts, setPosts] = useState([])
+    console.log("the url is: ", postURL)
 
     useEffect(() => {
-        axios.get("http://localhost:3001/api/posts").then((response) => {
-            setPosts(response.data)
-            console.log(response.data)
-        })
-    }, [])
+        axios
+            .get(postURL)
+            .then((response) => {
+                setPosts(response.data)
+                console.log("response.data")
+                console.log(response.data)
+            })
+            .catch((response) => {
+                console.log(response)
+            })
+    }, [postURL])
 
-    console.log("posts***", posts[0])
-    // console.log(posts[0])
+    console.log("posts***", posts)
     return posts.map((data) => (
         <Card style={{ width: "18rem" }}>
             <Card.Img variant="top" src={data.avatar} />

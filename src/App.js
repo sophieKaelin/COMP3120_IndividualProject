@@ -9,16 +9,18 @@ import Login from "./Login.js"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css"
 
+const postsURL = "http://localhost:3001/api/posts"
+
 function App() {
-    const [user, setUser] = useState(null)
-    const [feed, setMode] = useState(1)
+    const [user, setUser] = useState("")
+    const [posts, setPosts] = useState([])
+
+    const FsetPosts = (p) => {
+        setPosts(p)
+    }
 
     const FsetUser = (user) => {
         setUser(user)
-    }
-    //Feed will have various modes (show all users posts, show some, show one etc. More details in Feed.js)
-    const FsetMode = (mode) => {
-        setMode(mode)
     }
 
     useEffect(() => {
@@ -27,19 +29,25 @@ function App() {
             setUser(localUser)
         }
     }, [])
+    console.log("user is: ", user.username)
 
     return (
         <Router>
             <Switch>
                 <Route path="/explore">
-                    <NavBar user={user} setUser={FsetUser} setMode={FsetMode} />
+                    <NavBar user={user} setUser={FsetUser} />
                     {/* TODO: Unrestricted feed, view all posts */}
-                    <Feed feed={feed} />
+                    <Feed postURL={"http://localhost:3001/api/posts"} />
                 </Route>
                 <Route path="/profile/:username">
-                    <NavBar user={user} setUser={FsetUser} setMode={FsetMode} />
+                    <NavBar user={user} setUser={FsetUser} />
                     <Profile />
-                    <Feed feed={feed} />
+                    <Feed
+                        postURL={
+                            "http://localhost:3001/api/users/posts/" +
+                            user.username
+                        }
+                    />
                 </Route>
                 {/* TODO: HIDE THIS PATH IF USER IS LOGGED IN */}
                 <Route path="/logout">
@@ -51,9 +59,15 @@ function App() {
                 </Route>
                 <Route path="/">
                     {/* TODO: If User is not logged in, should redirect to the login page */}
-                    <NavBar user={user} setUser={FsetUser} setMode={FsetMode} />
-                    <PostComposer />
-                    <Feed feed={feed} />
+                    <NavBar user={user} setUser={FsetUser} />
+                    <PostComposer user={user} />
+                    <Feed
+                        postURL={
+                            "http://localhost:3001/api/users/" +
+                            user.username +
+                            "/followers"
+                        }
+                    />
                     {/* TODO: Restrict feed just to posts of people in following list*/}
                 </Route>
             </Switch>
