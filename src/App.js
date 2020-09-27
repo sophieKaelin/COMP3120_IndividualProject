@@ -12,7 +12,7 @@ import {
     Route,
     useParams,
 } from "react-router-dom"
-import { Container, Row, Col } from "react-bootstrap/"
+import { Container, Row, Col, Dropdown } from "react-bootstrap/"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./App.css"
 
@@ -67,6 +67,29 @@ function App() {
                         <Row>
                             <Col>
                                 <Profile user={user} />
+                                <br></br>
+                                <Dropdown>
+                                    <Dropdown.Toggle
+                                        variant="success"
+                                        id="dropdown-basic"
+                                    >
+                                        My Tunes 🎵
+                                    </Dropdown.Toggle>
+
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item href="#/action-1">
+                                            {/* https://developer.spotify.com/documentation/widgets/generate/embed/ */}
+                                            <iframe
+                                                src="https://open.spotify.com/embed/album/1DFixLWuPkv3KT3TnV35m3"
+                                                width="300"
+                                                height="80"
+                                                frameborder="0"
+                                                allowtransparency="true"
+                                                allow="encrypted-media"
+                                            ></iframe>
+                                        </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
                             </Col>
                             <Col>
                                 <Feed

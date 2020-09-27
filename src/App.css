@@ -55,6 +55,25 @@ a:hover {
     background-color: #737372;
 }
 
+.nav {
+    margin: 50px;
+}
+
+.dropdown-toggle {
+    background-color: hotpink;
+    font-weight: bold;
+    border-color: white;
+}
+
+.dropdown-toggle:hover {
+    background-color: #ab0338;
+    border-color: white;
+}
+
+.dropdown-menu {
+    background-color: black;
+}
+
 .btn-primary {
     background-color: hotpink;
     font-weight: bold;
@@ -66,8 +85,9 @@ a:hover {
     border-color: white;
 }
 
-.nav {
-    margin: 50px;
+.show > .btn-success.dropdown-toggle {
+    background-color: #ab0338;
+    border-color: white;
 }
 
 @keyframes App-logo-spin {
