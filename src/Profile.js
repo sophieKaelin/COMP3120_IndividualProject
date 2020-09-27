@@ -1,7 +1,5 @@
-import React, { useEffect } from "react"
-import axios from "axios"
+import React from "react"
 import Card from "react-bootstrap/Card"
-import Button from "react-bootstrap/Button"
 
 const Profile = ({ user }) => {
     return (

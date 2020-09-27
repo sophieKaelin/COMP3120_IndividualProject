@@ -31,9 +31,7 @@ const NavBar = ({ user, setUser, setMode }) => {
             </BNav.Item>
             {user && (
                 <BNav.Item>
-                    <BNav.Link href={"/profile/" + user.username}>
-                        Profile
-                    </BNav.Link>
+                    <BNav.Link href={"/myprofile/"}>Profile</BNav.Link>
                 </BNav.Item>
             )}
             {user ? (

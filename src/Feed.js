@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import { Card, Container, Row, Col } from "react-bootstrap"
+import { useParams } from "react-router-dom"
 
-const Feed = ({ postURL }) => {
-    //Will have many modes:
-    //1. show all posts
-    //2. show posts user is following
-    //3. show posts by user
-    //4. show posts mentioning user (HD)
+const Feed = ({ postURL, user }) => {
     const [posts, setPosts] = useState([])
     const [users, setUsers] = useState([])
+
+    if (postURL === "") {
+        const temp = window.location.href.split("/")
+        const tempUser = temp[temp.length - 1]
+        postURL = "http://localhost:3001/api/users/posts/" + tempUser
+    }
 
     useEffect(() => {
         axios

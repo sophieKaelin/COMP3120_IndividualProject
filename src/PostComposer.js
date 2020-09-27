@@ -7,8 +7,8 @@ import dateformat from "dateformat"
 const postsURL = "http://localhost:3001/api/posts"
 
 //TODO: PASS USER INTO HERE.
-const PostComposer = ({ updateFunction, deleteFunction, user }) => {
-    const [newPost, setPost] = useState("") //TODO: REFACTOR, into one state variable
+const PostComposer = ({ user }) => {
+    const [newPost, setPost] = useState("")
 
     const handleSetPost = (event) => {
         setPost(event.target.value)

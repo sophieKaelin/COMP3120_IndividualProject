@@ -2,10 +2,16 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import NavBar from "./NavBar.js"
 import Profile from "./Profile.js"
+import OtherProfile from "./OtherProfile.js"
 import Feed from "./Feed.js"
 import PostComposer from "./PostComposer.js"
 import Login from "./Login.js"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    useParams,
+} from "react-router-dom"
 import { Container, Row, Col } from "react-bootstrap/"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./App.css"
@@ -55,7 +61,7 @@ function App() {
                         </Row>
                     </Container>
                 </Route>
-                <Route path="/profile/:username">
+                <Route path="/myprofile">
                     <NavBar user={user} setUser={FsetUser} />
                     <Container>
                         <Row>
@@ -81,8 +87,20 @@ function App() {
                     <NavBar user={user} setUser={FsetUser} />
                     <Login user={user} setUser={FsetUser} />
                 </Route>
+                <Route path="/profile/:username">
+                    <NavBar user={user} setUser={FsetUser} />
+                    <Container>
+                        <Row>
+                            <Col>
+                                <OtherProfile />
+                            </Col>
+                            <Col>
+                                <Feed postURL={""} />
+                            </Col>
+                        </Row>
+                    </Container>
+                </Route>
                 <Route path="/">
-                    {/* TODO: If User is not logged in, should redirect to the login page */}
                     <NavBar user={user} setUser={FsetUser} />
                     <Container float="center" fluid>
                         <Row>
