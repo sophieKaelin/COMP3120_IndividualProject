@@ -1,4 +1,5 @@
 require("dotenv").config()
+
 const express = require("express")
 const app = express()
 
@@ -6,6 +7,7 @@ const cors = require("cors")
 const fs = require("fs")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+
 const { User, Post } = require("./schemas")
 
 app.use(express.static("build"))
@@ -13,6 +15,24 @@ app.use(express.static("build"))
 app.use(cors())
 app.use(express.json())
 
+//Converts content so that users can be tagged in posts
+const getContent = (content) => {
+    let temp = content.split(" ")
+    temp = temp.map((data) =>
+        data.startsWith("@")
+            ? " <a href='/profile/" +
+              data.substring(1) +
+              "'>@" +
+              data.substring(1) +
+              "</a>"
+            : data
+    )
+    temp = "<p>" + temp.join(" ") + "</p>"
+    console.log("temp ", temp)
+    return temp
+}
+
+//Retrieve User data from a username
 const getUser = async (user) => {
     console.log(user)
     return await User.findOne({ username: user }).then((result) => {
@@ -20,7 +40,7 @@ const getUser = async (user) => {
     })
 }
 
-//returns an array of json objects
+//returns an array of json objects of all people a user follows
 const getFollowers = async (user) => {
     return await User.find({ username: user }).then((result) => {
         return result[0].follows
@@ -31,10 +51,12 @@ const getFollowers = async (user) => {
 app.get("/api/users/:username/followers", async (request, response) => {
     const user = String(request.params.username)
     const followers = await getFollowers(user)
-    await Post.find({ user: followers }).then((result) => {
-        console.log(result)
-        response.json(result)
-    })
+    await Post.find({ user: followers })
+        .sort({ timestamp: -1 })
+        .then((result) => {
+            console.log(result)
+            response.json(result)
+        })
 })
 
 //Fetch all Users
@@ -63,10 +85,12 @@ app.get("/api/followers/:username", (request, response) => {
 
 //Fetch all Posts
 app.get("/api/posts", (request, response) => {
-    Post.find({}).then((result) => {
-        console.log(result)
-        response.json(result)
-    })
+    Post.find({})
+        .sort({ timestamp: -1 })
+        .then((result) => {
+            console.log(result)
+            response.json(result)
+        })
 })
 
 //Fetch Single Post
@@ -82,9 +106,33 @@ app.get("/api/posts/:id", (request, response) => {
 //Fetch Posts by a User
 app.get("/api/users/posts/:username", (request, response) => {
     const user = String(request.params.username)
-    Post.find({ user: user }).then((result) => {
-        console.log(result)
-        response.json(result)
+    Post.find({ user: user })
+        .sort({ timestamp: -1 })
+        .then((result) => {
+            console.log(result)
+            response.json(result)
+        })
+})
+
+//Make a Post
+//Fetch all Posts
+app.post("/api/posts", (request, response) => {
+    const body = request.body
+    console.log(body)
+
+    if (body.content === "") {
+        return response.status(400).json({ error: "Can't submit empty post" })
+    }
+
+    const post = new Post({
+        user: body.user,
+        timestamp: body.timestamp,
+        content: getContent(body.content),
+        likes: [],
+    })
+
+    post.save().then((savedPost) => {
+        response.json(savedPost)
     })
 })
 
