@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import { Card, Container, Row, Col } from "react-bootstrap"
-import { useParams } from "react-router-dom"
 
 const Feed = ({ postURL, user }) => {
     const [posts, setPosts] = useState([])
@@ -37,7 +36,6 @@ const Feed = ({ postURL, user }) => {
         const av = users.filter((name) => name.username === u)
         return av[0].avatar
     }
-
     return posts.map((data) => (
         <Card id="Card" style={{ width: "44rem" }}>
             <Card.Header>{data.timestamp}</Card.Header>

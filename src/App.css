@@ -74,6 +74,12 @@ a:hover {
     background-color: black;
 }
 
+.btn-primary:enabled {
+    background-color: hotpink;
+    font-weight: bold;
+    border-color: white;
+}
+
 .btn-primary {
     background-color: hotpink;
     font-weight: bold;
@@ -82,6 +88,7 @@ a:hover {
 
 .btn-primary:hover {
     background-color: #ab0338;
+    font-weight: bold;
     border-color: white;
 }
 

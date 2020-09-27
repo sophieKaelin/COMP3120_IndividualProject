@@ -6,25 +6,13 @@ import OtherProfile from "./OtherProfile.js"
 import Feed from "./Feed.js"
 import PostComposer from "./PostComposer.js"
 import Login from "./Login.js"
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    useParams,
-} from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import { Container, Row, Col, Dropdown } from "react-bootstrap/"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./App.css"
 
-const postsURL = "http://localhost:3001/api/posts"
-
 function App() {
     const [user, setUser] = useState("")
-    const [posts, setPosts] = useState([])
-
-    const FsetPosts = (p) => {
-        setPosts(p)
-    }
 
     const FsetUser = (user) => {
         setUser(user)
@@ -144,6 +132,7 @@ function App() {
                                         user.username +
                                         "/followers"
                                     }
+                                    user={user}
                                 />
                             </Col>
                             <Col />

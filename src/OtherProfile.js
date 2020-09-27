@@ -1,7 +1,6 @@
-import React, { useParams, useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import axios from "axios"
 import Card from "react-bootstrap/Card"
-import { CardColumns } from "react-bootstrap"
 
 function OtherProfile() {
     const [theUser, setTheUser] = useState([])
