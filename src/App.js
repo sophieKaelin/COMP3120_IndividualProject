@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react"
-import "./App.css"
 import NavBar from "./NavBar.js"
 import Profile from "./Profile.js"
 import Feed from "./Feed.js"
 import PostComposer from "./PostComposer.js"
 import Login from "./Login.js"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import { Container, Row, Col } from "react-bootstrap/"
 import "bootstrap/dist/css/bootstrap.min.css"
+import "./App.css"
 
 const postsURL = "http://localhost:3001/api/posts"
 
@@ -35,17 +36,35 @@ function App() {
                 <Route path="/explore">
                     <NavBar user={user} setUser={FsetUser} />
                     {/* TODO: Unrestricted feed, view all posts */}
-                    <Feed postURL={"http://localhost:3001/api/posts"} />
+                    <Container float="center" fluid>
+                        <Row>
+                            <Col />
+                            <Col>
+                                <Feed
+                                    postURL={"http://localhost:3001/api/posts"}
+                                />
+                            </Col>
+                            <Col />
+                        </Row>
+                    </Container>
                 </Route>
                 <Route path="/profile/:username">
                     <NavBar user={user} setUser={FsetUser} />
-                    <Profile user={user} />
-                    <Feed
-                        postURL={
-                            "http://localhost:3001/api/users/posts/" +
-                            user.username
-                        }
-                    />
+                    <Container>
+                        <Row>
+                            <Col>
+                                <Profile user={user} />
+                            </Col>
+                            <Col>
+                                <Feed
+                                    postURL={
+                                        "http://localhost:3001/api/users/posts/" +
+                                        user.username
+                                    }
+                                />
+                            </Col>
+                        </Row>
+                    </Container>
                 </Route>
                 {/* TODO: HIDE THIS PATH IF USER IS LOGGED IN */}
                 <Route path="/logout">
@@ -58,14 +77,30 @@ function App() {
                 <Route path="/">
                     {/* TODO: If User is not logged in, should redirect to the login page */}
                     <NavBar user={user} setUser={FsetUser} />
-                    {user ? <PostComposer user={user} /> : <br></br>}
-                    <Feed
-                        postURL={
-                            "http://localhost:3001/api/users/" +
-                            user.username +
-                            "/followers"
-                        }
-                    />
+                    <Container float="center" fluid>
+                        <Row>
+                            <Col>
+                                {user ? (
+                                    <PostComposer user={user} />
+                                ) : (
+                                    <br></br>
+                                )}{" "}
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col />
+                            <Col>
+                                <Feed
+                                    postURL={
+                                        "http://localhost:3001/api/users/" +
+                                        user.username +
+                                        "/followers"
+                                    }
+                                />
+                            </Col>
+                            <Col />
+                        </Row>
+                    </Container>
                     {/* TODO: Restrict feed just to posts of people in following list*/}
                 </Route>
             </Switch>

@@ -31,7 +31,7 @@ const PostComposer = ({ updateFunction, deleteFunction, user }) => {
     }
 
     return (
-        <Form onSubmit={addToList}>
+        <Form id="form" onSubmit={addToList}>
             <Form.Group>
                 <Form.Label>Make a Post: </Form.Label>
                 <Form.Control
@@ -41,7 +41,7 @@ const PostComposer = ({ updateFunction, deleteFunction, user }) => {
                     onChange={handleSetPost}
                 />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button id="button" variant="primary" type="submit">
                 Post
             </Button>
         </Form>

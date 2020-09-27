@@ -23,7 +23,7 @@ const Feed = ({ postURL }) => {
     }, [postURL])
 
     return posts.map((data) => (
-        <Card style={{ width: "18rem" }}>
+        <Card id="Card" style={{ width: "44rem" }}>
             <Card.Img variant="top" src={data.avatar} />
             <Card.Body>
                 <Card.Link href={"/profile/" + data.user}>
