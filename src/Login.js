@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import axios from "axios"
 import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
+import { Redirect } from "react-router-dom"
 
 const loginURL = "http://localhost:3001/api/login"
 
@@ -29,7 +30,7 @@ const Login = ({ user, setUser }) => {
     }
 
     if (user) {
-        return <h2>RETURN TO HOME, YOU ARE LOGGED IN</h2>
+        return <Redirect to="/" />
     } else {
         return (
             <Form onSubmit={formHandler}>
