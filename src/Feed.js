@@ -9,14 +9,12 @@ const Feed = ({ postURL }) => {
     //3. show posts by user
     //4. show posts mentioning user (HD)
     const [posts, setPosts] = useState([])
-    console.log("the url is: ", postURL)
 
     useEffect(() => {
         axios
             .get(postURL)
             .then((response) => {
                 setPosts(response.data)
-                console.log("response.data")
                 console.log(response.data)
             })
             .catch((response) => {
@@ -24,7 +22,6 @@ const Feed = ({ postURL }) => {
             })
     }, [postURL])
 
-    console.log("posts***", posts)
     return posts.map((data) => (
         <Card style={{ width: "18rem" }}>
             <Card.Img variant="top" src={data.avatar} />

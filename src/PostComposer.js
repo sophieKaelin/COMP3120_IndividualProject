@@ -25,7 +25,6 @@ const PostComposer = ({ updateFunction, deleteFunction, user }) => {
         }
         if (postObject.content !== "") {
             axios.post(postsURL, postObject).then((response) => {
-                console.log(response)
                 //TODO: Force Rerender the app component ? State variable? Call the update function parameter?
             })
         }

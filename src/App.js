@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import "./App.css"
 import NavBar from "./NavBar.js"
-// import Content from "./Content.js"
 import Profile from "./Profile.js"
 import Feed from "./Feed.js"
 import PostComposer from "./PostComposer.js"
@@ -29,7 +28,6 @@ function App() {
             setUser(localUser)
         }
     }, [])
-    console.log("user is: ", user.username)
 
     return (
         <Router>
@@ -41,7 +39,7 @@ function App() {
                 </Route>
                 <Route path="/profile/:username">
                     <NavBar user={user} setUser={FsetUser} />
-                    <Profile />
+                    <Profile user={user} />
                     <Feed
                         postURL={
                             "http://localhost:3001/api/users/posts/" +
@@ -60,7 +58,7 @@ function App() {
                 <Route path="/">
                     {/* TODO: If User is not logged in, should redirect to the login page */}
                     <NavBar user={user} setUser={FsetUser} />
-                    <PostComposer user={user} />
+                    {user ? <PostComposer user={user} /> : <br></br>}
                     <Feed
                         postURL={
                             "http://localhost:3001/api/users/" +
