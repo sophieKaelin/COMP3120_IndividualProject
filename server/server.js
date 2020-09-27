@@ -36,7 +36,7 @@ const getContent = (content) => {
 
 //Retrieve User data from a username
 const getUser = async (user) => {
-    console.log(user)
+    // console.log(user)
     return await User.findOne({ username: user }).then((result) => {
         return result
     })
@@ -45,7 +45,8 @@ const getUser = async (user) => {
 //returns an array of json objects of all people a user follows
 const getFollowers = async (user) => {
     return await User.find({ username: user }).then((result) => {
-        return result[0].follows
+        const followers = [...result[0].follows, user]
+        return followers
     })
 }
 
@@ -53,10 +54,11 @@ const getFollowers = async (user) => {
 app.get("/api/users/:username/followers", async (request, response) => {
     const user = String(request.params.username)
     const followers = await getFollowers(user)
+    console.log("followers: ", followers)
     await Post.find({ user: followers })
         .sort({ timestamp: -1 })
         .then((result) => {
-            console.log(result)
+            // console.log(result)
             response.json(result)
         })
 })
@@ -64,7 +66,7 @@ app.get("/api/users/:username/followers", async (request, response) => {
 //Fetch all Users
 app.get("/api/users", (request, response) => {
     User.find({}).then((result) => {
-        console.log(result)
+        // console.log(result)
         response.json(result)
     })
 })
@@ -74,7 +76,7 @@ app.get("/api/users", (request, response) => {
 app.get("/api/users/:username", (request, response) => {
     const user = String(request.params.username)
     User.find({ username: user }).then((result) => {
-        console.log(result)
+        // console.log(result)
         response.json(result[0])
     })
 })
@@ -90,7 +92,7 @@ app.get("/api/posts", (request, response) => {
     Post.find({})
         .sort({ timestamp: -1 })
         .then((result) => {
-            console.log(result)
+            // console.log(result)
             response.json(result)
         })
 })
@@ -100,7 +102,7 @@ app.get("/api/posts", (request, response) => {
 app.get("/api/posts/:id", (request, response) => {
     const postID = String(request.params.id)
     Post.find({ _id: postID }).then((result) => {
-        console.log(result)
+        // console.log(result)
         response.json(result[0])
     })
 })
@@ -111,7 +113,7 @@ app.get("/api/users/posts/:username", (request, response) => {
     Post.find({ user: user })
         .sort({ timestamp: -1 })
         .then((result) => {
-            console.log(result)
+            // console.log(result)
             response.json(result)
         })
 })
@@ -120,7 +122,7 @@ app.get("/api/users/posts/:username", (request, response) => {
 //Fetch all Posts
 app.post("/api/posts", (request, response) => {
     const body = request.body
-    console.log(body)
+    // console.log(body)
 
     if (body.content === "") {
         return response.status(400).json({ error: "Can't submit empty post" })
@@ -143,7 +145,7 @@ app.post("/api/login", async (request, response) => {
     const password = request.body.password
 
     const user = await getUser(username)
-    console.log(user)
+    // console.log(user)
     if (!user) {
         //check if the user exists
         return response
