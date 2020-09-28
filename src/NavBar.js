@@ -16,11 +16,13 @@ const NavBar = ({ user, setUser, setMode }) => {
         //ADD LOGO ON THE LEFT
         //ADD SEARCH BAR ON THE LEFT
         <BNav variant="tabs" activeKey="/home">
-            <img
-                width="10%"
-                src={process.env.PUBLIC_URL + "/brand.png"}
-                alt="WUPHF"
-            />
+            <a href="/">
+                <img
+                    width="50%"
+                    src={process.env.PUBLIC_URL + "/brand.png"}
+                    alt="WUPHF"
+                />
+            </a>
             {user && (
                 <BNav.Item>
                     <BNav.Link href="/">Home</BNav.Link>
