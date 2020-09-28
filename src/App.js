@@ -38,7 +38,7 @@ function App() {
                         <Row>
                             <Col />
                             <Col>
-                                <Feed postURL={"/api/posts"} />
+                                <Feed postURL={"/api/posts"} user={user} />
                             </Col>
                             <Col />
                         </Row>
@@ -79,6 +79,7 @@ function App() {
                                     postURL={
                                         "/api/users/posts/" + user.username
                                     }
+                                    user={user}
                                 />
                             </Col>
                         </Row>
@@ -104,7 +105,7 @@ function App() {
                                 <OtherProfile />
                             </Col>
                             <Col>
-                                <Feed postURL={""} />
+                                <Feed postURL={""} user={user} />
                             </Col>
                         </Row>
                     </Container>

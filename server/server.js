@@ -194,8 +194,16 @@ app.post("/api/create", async (request, response) => {
     }
 })
 
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../build/index.html"))
+app.get("*", (request, response) => {
+    response.sendFile(path.join(__dirname, "../build/index.html"))
+})
+
+app.delete("/api/posts/:id", async (request, response) => {
+    const id = request.params.id
+    await Post.deleteOne({ _id: id }).then((result) => {
+        console.log("result: ", result)
+        response.json(result)
+    })
 })
 
 const PORT = process.env.PORT || 3000
