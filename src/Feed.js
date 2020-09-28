@@ -9,23 +9,21 @@ const Feed = ({ postURL, user }) => {
     if (postURL === "") {
         const temp = window.location.href.split("/")
         const tempUser = temp[temp.length - 1]
-        postURL = "http://localhost:3001/api/users/posts/" + tempUser
+        postURL = "/api/users/posts/" + tempUser
     }
-
     useEffect(() => {
         axios
             .get(postURL)
             .then((response) => {
                 setPosts(response.data)
-                // console.log(response.data)
             })
             .catch((response) => {
-                console.log(response)
+                console.log("response: ", response)
             })
     }, [postURL])
 
     useEffect(() => {
-        axios.get("http://localhost:3001/api/users").then((response) => {
+        axios.get("/api/users").then((response) => {
             setUsers(response.data)
         })
     })

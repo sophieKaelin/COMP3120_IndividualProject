@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import NavBar from "./NavBar.js"
 import Profile from "./Profile.js"
+import Create from "./Create.js"
 import OtherProfile from "./OtherProfile.js"
 import Feed from "./Feed.js"
 import PostComposer from "./PostComposer.js"
@@ -21,13 +22,9 @@ function App() {
     useEffect(() => {
         const localUser = JSON.parse(localStorage.getItem("user"))
         if (localUser) {
-            axios
-                .get("http://localhost:3001/api/users/" + localUser.username)
-                .then((response) => {
-                    setUser(response.data)
-                    console.log("response:", response.data)
-                })
-            // setUser(localUser)
+            axios.get("/api/users/" + localUser.username).then((response) => {
+                setUser(response.data)
+            })
         }
     }, [])
 
@@ -41,9 +38,7 @@ function App() {
                         <Row>
                             <Col />
                             <Col>
-                                <Feed
-                                    postURL={"http://localhost:3001/api/posts"}
-                                />
+                                <Feed postURL={"/api/posts"} />
                             </Col>
                             <Col />
                         </Row>
@@ -82,8 +77,7 @@ function App() {
                             <Col>
                                 <Feed
                                     postURL={
-                                        "http://localhost:3001/api/users/posts/" +
-                                        user.username
+                                        "/api/users/posts/" + user.username
                                     }
                                 />
                             </Col>
@@ -97,6 +91,10 @@ function App() {
                 <Route path="/login">
                     <NavBar user={user} setUser={FsetUser} />
                     <Login user={user} setUser={FsetUser} />
+                </Route>
+                <Route path="/create">
+                    <NavBar user={user} setUser={FsetUser} />
+                    <Create user={user} setUser={FsetUser} />
                 </Route>
                 <Route path="/profile/:username">
                     <NavBar user={user} setUser={FsetUser} />
@@ -128,7 +126,7 @@ function App() {
                             <Col>
                                 <Feed
                                     postURL={
-                                        "http://localhost:3001/api/users/" +
+                                        "/api/users/" +
                                         user.username +
                                         "/followers"
                                     }

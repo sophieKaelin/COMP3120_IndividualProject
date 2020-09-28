@@ -3,11 +3,10 @@ import axios from "axios"
 import { Form, Button, Card } from "react-bootstrap"
 import { Redirect } from "react-router-dom"
 
-const loginURL = "/api/login"
+const loginURL = "/api/create"
 
-const Login = ({ user, setUser }) => {
-    console.log(loginURL)
-    const login = ({ username, password }) => {
+const Create = ({ user, setUser }) => {
+    const create = ({ username, password }) => {
         return axios
             .post(loginURL, { username, password })
             .then((response) => response.data)
@@ -18,11 +17,12 @@ const Login = ({ user, setUser }) => {
 
     const formHandler = (event) => {
         event.preventDefault()
-        login({ username, password })
+        create({ username, password })
             .then((data) => {
                 console.log("Success:", data)
                 setUser(data)
                 localStorage.setItem("user", JSON.stringify(data))
+                return <Redirect to="/" />
             })
             .catch((error) => {
                 console.log("Error:", error)
@@ -51,15 +51,19 @@ const Login = ({ user, setUser }) => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <br></br>
+                    <Form.Label>Confirm Password</Form.Label>
+                    <Form.Control
+                        name="password"
+                        type="password"
+                        placeholder="Confirm Password"
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <br></br>
                     <Button type="submit">Login</Button>
                 </Form>
-
-                <Card align="center" style={{ padding: "15px" }}>
-                    <Card.Link href="/create">Create an Account</Card.Link>
-                </Card>
             </div>
         )
     }
 }
 
-export default Login
+export default Create

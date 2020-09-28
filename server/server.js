@@ -45,8 +45,7 @@ const getUser = async (user) => {
 //returns an array of json objects of all people a user follows
 const getFollowers = async (user) => {
     return await User.find({ username: user }).then((result) => {
-        const followers = [...result[0].follows, user]
-        return followers
+        return [...result[0].follows, user]
     })
 }
 
@@ -102,7 +101,6 @@ app.get("/api/posts", (request, response) => {
 app.get("/api/posts/:id", (request, response) => {
     const postID = String(request.params.id)
     Post.find({ _id: postID }).then((result) => {
-        // console.log(result)
         response.json(result[0])
     })
 })
@@ -113,7 +111,6 @@ app.get("/api/users/posts/:username", (request, response) => {
     Post.find({ user: user })
         .sort({ timestamp: -1 })
         .then((result) => {
-            // console.log(result)
             response.json(result)
         })
 })
@@ -122,8 +119,6 @@ app.get("/api/users/posts/:username", (request, response) => {
 //Fetch all Posts
 app.post("/api/posts", (request, response) => {
     const body = request.body
-    // console.log(body)
-
     if (body.content === "") {
         return response.status(400).json({ error: "Can't submit empty post" })
     }
@@ -145,7 +140,6 @@ app.post("/api/login", async (request, response) => {
     const password = request.body.password
 
     const user = await getUser(username)
-    // console.log(user)
     if (!user) {
         //check if the user exists
         return response
@@ -169,6 +163,31 @@ app.post("/api/login", async (request, response) => {
                 .json({ error: "Invalid username or password" })
         }
     }
+})
+
+app.post("/api/create", async (request, response) => {
+    const username = request.body.username
+    const password = request.body.password
+
+    const user = {
+        username: username,
+        password: password,
+        avatar: "http://robohash.org/jim",
+        follows: [],
+    }
+
+    user.password = bcrypt.hash(user.password, 10).then((newPassword) => {
+        const newThing = new User({
+            username: user.username,
+            password: newPassword,
+            avatar: user.avatar,
+            follows: user.follows,
+        })
+        console.log(newThing)
+        newThing.save().then((result) => {
+            console.log("new user added")
+        })
+    })
 })
 
 app.get("*", (req, res) => {

@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
 import dateformat from "dateformat"
 
-const postsURL = "http://localhost:3001/api/posts"
+const postsURL = "/api/posts"
 
 //TODO: PASS USER INTO HERE.
 const PostComposer = ({ user }) => {

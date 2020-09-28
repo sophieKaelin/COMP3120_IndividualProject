@@ -8,11 +8,9 @@ function OtherProfile() {
     const tempUser = temp[temp.length - 1]
 
     useEffect(() => {
-        axios
-            .get("http://localhost:3001/api/users/" + tempUser)
-            .then((response) => {
-                setTheUser(response.data)
-            })
+        axios.get("/api/users/" + tempUser).then((response) => {
+            setTheUser(response.data)
+        })
     }, [])
     return (
         <Card style={{ width: "18rem" }}>
