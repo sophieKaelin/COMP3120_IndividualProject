@@ -168,26 +168,30 @@ app.post("/api/login", async (request, response) => {
 app.post("/api/create", async (request, response) => {
     const username = request.body.username
     const password = request.body.password
+    if ((await getUser(username)) !== null) {
+        console.log("User Already Exists")
+        response.status(400).json({ error: "User Already Exists" })
+    } else {
+        const user = {
+            username: username,
+            password: password,
+            avatar: "http://robohash.org/jim",
+            follows: [],
+        }
 
-    const user = {
-        username: username,
-        password: password,
-        avatar: "http://robohash.org/jim",
-        follows: [],
+        user.password = bcrypt.hash(user.password, 10).then((newPassword) => {
+            const newThing = new User({
+                username: user.username,
+                password: newPassword,
+                avatar: user.avatar,
+                follows: user.follows,
+            })
+            console.log(newThing)
+            newThing.save().then((result) => {
+                console.log("new user added")
+            })
+        })
     }
-
-    user.password = bcrypt.hash(user.password, 10).then((newPassword) => {
-        const newThing = new User({
-            username: user.username,
-            password: newPassword,
-            avatar: user.avatar,
-            follows: user.follows,
-        })
-        console.log(newThing)
-        newThing.save().then((result) => {
-            console.log("new user added")
-        })
-    })
 })
 
 app.get("*", (req, res) => {
